@@ -1,0 +1,4 @@
+driver: mysql
+user: root
+port: 3307
+password: xxx
