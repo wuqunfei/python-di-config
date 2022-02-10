@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class AbstractNLPService(ABC):
 
-    def __init__(self):
-        ...
+    def __init__(self, config: dict):
+        self.config = config
 
     @abstractmethod
     def ocr_preprocess(self):
@@ -24,6 +24,9 @@ class AbstractNLPService(ABC):
 
 
 class AGCSNLPService(AbstractNLPService):
+
+    def __init__(self, config: dict):
+        super().__init__(config)
 
     def ocr_preprocess(self):
         pass
