@@ -1,7 +1,7 @@
 from dependency_injector import containers, providers
 
 from src.gateway import MysqlGateWay, S3GateWay
-from src.services import AGCSNLPService, AbstractNLPService
+from src.services import AbstractNLPService, BankNLPService
 
 
 class MyContainer(containers.DeclarativeContainer):
@@ -16,8 +16,8 @@ class MyContainer(containers.DeclarativeContainer):
     )
 
     '''Services '''
-    agcs_nlp_service_factory: AbstractNLPService = providers.Factory(
-        AGCSNLPService,
+    nlp_service_factory: AbstractNLPService = providers.Factory(
+        BankNLPService,
         config=config,
         db_gateway=mysql_gateway
     )

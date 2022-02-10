@@ -32,51 +32,53 @@ class AbstractNLPService(ABC):
         self.post_process()
 
 
-class AGCSNLPService(AbstractNLPService):
+class BankNLPService(AbstractNLPService):
 
-    def __init__(self, config: dict,
+    def __init__(self,
+                 config: dict,
                  db_gateway: MysqlGateWay):
         super().__init__(config)
+
         self.db_gateway = db_gateway
 
     def ocr_preprocess(self):
-        logger.info("AGCS OCR preprocess done")
+        logger.info(f"{self.__class__.__name__} OCR preprocess done")
 
     def tokenizer(self):
-        logger.info("AGCS Tokenizer  done")
+        logger.info(f"{self.__class__.__name__} Tokenizer  done")
 
     def chunker(self):
-        logger.info("AGCS Chunker done")
+        logger.info(f"{self.__class__.__name__}Chunker done")
 
     def post_process(self):
-        logger.info("AGCS post process done")
+        logger.info(f"{self.__class__.__name__}post process done")
         logger.info(self.config)
 
 
-class AGINLPService(AbstractNLPService):
+class InsuranceNLPService(AbstractNLPService):
 
     def ocr_preprocess(self):
-        logger.info("AGI OCR preprocess done")
+        logger.info(f"{self.__class__.__name__} OCR preprocess done")
 
     def tokenizer(self):
-        logger.info("AGI Tokenizer done")
+        logger.info(f"{self.__class__.__name__} Tokenizer done")
 
     def chunker(self):
-        logger.info("AGI Chunker done")
+        logger.info(f"{self.__class__.__name__} Chunker done")
 
     def post_process(self):
-        logger.info("AGI post process done")
+        logger.info(f"{self.__class__.__name__} post process done")
 
     @abstractmethod
-    def finance_risk(self):
+    def get_risk(self):
         ...
 
 
-class AGIBankNLPService(AGINLPService):
-    def finance_risk(self):
-        logger.info("AGI Bank RISK process done")
+class LifeNLPService(InsuranceNLPService):
+    def get_risk(self):
+        logger.info(f"{self.__class__.__name__} RISK process done")
 
 
-class AGIRealEstateNLPService(AGINLPService):
-    def finance_risk(self):
-        logger.info("AGI Real Estate process done")
+class AutoNLPService(InsuranceNLPService):
+    def get_risk(self):
+        logger.info(f"{self.__class__.__name__} process done")

@@ -43,7 +43,7 @@ def my_app(cfg: MySQLConfig) -> None:
     container = MyContainer()
     """3. to load configuration into container"""
     container.config.from_dict(cfg_dict)
-    agcs_nlp = container.agcs_nlp_service_factory()
+    agcs_nlp = container.nlp_service_factory()
     agcs_nlp.run_nlp()
 
 
