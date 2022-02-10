@@ -45,13 +45,13 @@ class BankNLPService(AbstractNLPService):
         logger.info(f"{self.__class__.__name__} OCR preprocess done")
 
     def tokenizer(self):
-        logger.info(f"{self.__class__.__name__} Tokenizer  done")
+        logger.info(f"{self.__class__.__name__} Tokenizer done")
 
     def chunker(self):
-        logger.info(f"{self.__class__.__name__}Chunker done")
+        logger.info(f"{self.__class__.__name__} Chunker done")
 
     def post_process(self):
-        logger.info(f"{self.__class__.__name__}post process done")
+        logger.info(f"{self.__class__.__name__} post process done")
         logger.info(self.config)
 
 
@@ -76,9 +76,9 @@ class InsuranceNLPService(AbstractNLPService):
 
 class LifeNLPService(InsuranceNLPService):
     def get_risk(self):
-        logger.info(f"{self.__class__.__name__} RISK process done")
+        logger.info(f"{self.__class__.__name__} risk score 1.0 done")
 
 
 class AutoNLPService(InsuranceNLPService):
     def get_risk(self):
-        logger.info(f"{self.__class__.__name__} process done")
+        logger.info(f"{self.__class__.__name__} risk score 2.0 done")
