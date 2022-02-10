@@ -7,7 +7,7 @@ from src.services import AbstractNLPService, BankNLPService
 class MyContainer(containers.DeclarativeContainer):
     config = providers.Configuration()
 
-    '''Gateway Factory'''
+    '''Gateways'''
     mysql_gateway: DatabaseGateway = providers.Singleton(
         MysqlGateway
     )
