@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from loguru import logger
 
 
 class AbstractNLPService(ABC):
@@ -11,7 +12,7 @@ class AbstractNLPService(ABC):
         ...
 
     @abstractmethod
-    def tokenizer(self, line: str):
+    def tokenizer(self):
         ...
 
     @abstractmethod
@@ -21,6 +22,12 @@ class AbstractNLPService(ABC):
     @abstractmethod
     def post_process(self):
         ...
+
+    def run_nlp(self):
+        self.ocr_preprocess()
+        self.tokenizer()
+        self.chunker()
+        self.post_process()
 
 
 class AGCSNLPService(AbstractNLPService):
@@ -29,31 +36,32 @@ class AGCSNLPService(AbstractNLPService):
         super().__init__(config)
 
     def ocr_preprocess(self):
-        pass
+        logger.info("AGCS OCR preprocess done")
 
-    def tokenizer(self, line: str):
-        pass
+    def tokenizer(self):
+        logger.info("AGCS Tokenizer  done")
 
     def chunker(self):
-        pass
+        logger.info("AGCS Chunker done")
 
     def post_process(self):
-        pass
+        logger.info("AGCS post process done")
+        logger.info(self.config)
 
 
 class AGINLPService(AbstractNLPService):
 
     def ocr_preprocess(self):
-        pass
+        logger.info("AGI OCR preprocess done")
 
-    def tokenizer(self, line: str):
-        pass
+    def tokenizer(self):
+        logger.info("AGI Tokenizer done")
 
     def chunker(self):
-        pass
+        logger.info("AGI Chunker done")
 
     def post_process(self):
-        pass
+        logger.info("AGI post process done")
 
     @abstractmethod
     def finance_risk(self):
@@ -62,9 +70,9 @@ class AGINLPService(AbstractNLPService):
 
 class AGIBankNLPService(AGINLPService):
     def finance_risk(self):
-        pass
+        logger.info("AGI Bank RISK process done")
 
 
 class AGIRealEstateNLPService(AGINLPService):
     def finance_risk(self):
-        pass
+        logger.info("AGI Real Estate process done")

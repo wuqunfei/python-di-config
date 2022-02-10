@@ -16,11 +16,11 @@ class MySQLConfig:
     port: int
     password: str
 
-    # @validator('port', pre=True)
-    # def check_port(cls, v):
-    #     if v > 3306:
-    #         raise Exception(f"Port is wrong {v}")
-    #     return v
+    @validator('port', pre=True)
+    def check_port(cls, v):
+        if v > 3306:
+            raise Exception(f"Port is wrong {v}")
+        return v
     #
     # @validator('password', pre=True)
     # def check_pwd(cls, v):
@@ -34,13 +34,19 @@ cs.store(name="config", node=MySQLConfig, group='db')
 
 @hydra.main(config_path="", config_name="config")
 def my_app(cfg: MySQLConfig) -> None:
+    """1. to get config yaml by hydra"""
     cfg_dict = dict(cfg)
-    '''to validate the configuration by pydantic'''
+
+    """2. to validate the configuration by pydantic"""
     configuration = MySQLConfig(**cfg_dict)
 
-    '''to load configuration from dict'''
     container = MyContainer()
+    """3. to load configuration into container"""
     container.config.from_dict(cfg_dict)
+    agcs_nlp = container.agcs_nlp_service_factory()
+    agcs_nlp.run_nlp()
+
+
 
 
 if __name__ == "__main__":

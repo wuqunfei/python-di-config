@@ -16,6 +16,7 @@ class MyContainer(containers.DeclarativeContainer):
     )
 
     '''Services '''
-    agcs_nlp_service: AbstractNLPService = providers.Factory(
-        AGCSNLPService
+    agcs_nlp_service_factory: AbstractNLPService = providers.Factory(
+        AGCSNLPService,
+        config=config
     )
