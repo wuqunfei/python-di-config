@@ -1,4 +1,5 @@
-from omegaconf import DictConfig
+from typing import Union
+
 from pydantic import validator
 from pydantic.dataclasses import dataclass
 
@@ -15,11 +16,16 @@ class MySQLConfig:
     port: int
     password: str
 
-    @validator('port', pre=True)
-    def check(cls, v):
-        if v > 3306:
-            raise Exception(f"Port is wrong {v}")
-        return v
+    # @validator('port', pre=True)
+    # def check_port(cls, v):
+    #     if v > 3306:
+    #         raise Exception(f"Port is wrong {v}")
+    #     return v
+    #
+    # @validator('password', pre=True)
+    # def check_pwd(cls, v):
+    #     if not v or len(v) < 6:
+    #         raise Exception('f"pwd is too short"')
 
 
 cs = ConfigStore.instance()
@@ -27,7 +33,7 @@ cs.store(name="config", node=MySQLConfig, group='.')
 
 
 @hydra.main(config_path="", config_name="config")
-def my_app(cfg: DictConfig) -> None:
+def my_app(cfg: MySQLConfig) -> None:
     cfg_dict = dict(cfg)
     '''to validate the configuration by pydantic'''
     configuration = MySQLConfig(**cfg_dict)

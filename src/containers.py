@@ -1,6 +1,6 @@
 from dependency_injector import containers, providers
 
-from src.services import MysqlGateWay, S3GateWay
+from src.gateway import MysqlGateWay, S3GateWay
 
 
 class MyContainer(containers.DeclarativeContainer):
