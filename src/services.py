@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from loguru import logger
 
+from src.gateway import MysqlGateWay
+
 
 class AbstractNLPService(ABC):
 
@@ -32,8 +34,10 @@ class AbstractNLPService(ABC):
 
 class AGCSNLPService(AbstractNLPService):
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict,
+                 storage_gateway: MysqlGateWay):
         super().__init__(config)
+        self.storage_gateway = storage_gateway
 
     def ocr_preprocess(self):
         logger.info("AGCS OCR preprocess done")
