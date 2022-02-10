@@ -19,5 +19,5 @@ class MyContainer(containers.DeclarativeContainer):
     agcs_nlp_service_factory: AbstractNLPService = providers.Factory(
         AGCSNLPService,
         config=config,
-        storage_gateway=mysql_gateway
+        db_gateway=mysql_gateway
     )

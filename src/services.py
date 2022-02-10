@@ -35,9 +35,9 @@ class AbstractNLPService(ABC):
 class AGCSNLPService(AbstractNLPService):
 
     def __init__(self, config: dict,
-                 storage_gateway: MysqlGateWay):
+                 db_gateway: MysqlGateWay):
         super().__init__(config)
-        self.storage_gateway = storage_gateway
+        self.db_gateway = db_gateway
 
     def ocr_preprocess(self):
         logger.info("AGCS OCR preprocess done")
