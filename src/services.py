@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from loguru import logger
 
-from src.gateway import MysqlGateWay
+from src.gateway import MysqlGateway
 
 
 class AbstractNLPService(ABC):
@@ -36,7 +36,7 @@ class BankNLPService(AbstractNLPService):
 
     def __init__(self,
                  config: dict,
-                 db_gateway: MysqlGateWay):
+                 db_gateway: MysqlGateway):
         super().__init__(config)
 
         self.db_gateway = db_gateway

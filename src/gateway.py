@@ -2,9 +2,22 @@ from abc import ABC, abstractmethod
 from loguru import logger
 
 
-class MysqlGateWay:
+class DatabaseGateway(ABC):
+
     def __init__(self):
         ...
+
+    @abstractmethod
+    def save(self):
+        ...
+
+
+class MysqlGateway(DatabaseGateway):
+    def __init__(self):
+        ...
+
+    def save(self):
+        logger.info("Saved in Mysql")
 
 
 class ObjectStorageGateway(ABC):
