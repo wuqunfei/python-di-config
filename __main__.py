@@ -3,6 +3,7 @@ from typing import Union
 from pydantic import validator
 from pydantic.dataclasses import dataclass
 
+
 import hydra
 from hydra.core.config_store import ConfigStore
 

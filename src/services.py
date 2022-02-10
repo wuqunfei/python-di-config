@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from loguru import logger
 
-from src.gateway import MysqlGateway
+from src.gateway import DatabaseGateway, ObjectStorageGateway
 
 
 class AbstractNLPService(ABC):
@@ -36,12 +36,15 @@ class BankNLPService(AbstractNLPService):
 
     def __init__(self,
                  config: dict,
-                 db_gateway: MysqlGateway):
+                 db_gateway: DatabaseGateway,
+                 storage_gateway: ObjectStorageGateway):
         super().__init__(config)
 
         self.db_gateway = db_gateway
+        self.storage_gateway = storage_gateway
 
     def ocr_preprocess(self):
+        self.storage_gateway.download()
         logger.info(f"{self.__class__.__name__} OCR preprocess done")
 
     def tokenizer(self):
@@ -53,9 +56,13 @@ class BankNLPService(AbstractNLPService):
     def post_process(self):
         logger.info(f"{self.__class__.__name__} post process done")
         logger.info(self.config)
+        self.db_gateway.save()
 
 
 class InsuranceNLPService(AbstractNLPService):
+
+    def __init__(self, config: dict):
+        super().__init__(config)
 
     def ocr_preprocess(self):
         logger.info(f"{self.__class__.__name__} OCR preprocess done")
@@ -79,6 +86,6 @@ class LifeNLPService(InsuranceNLPService):
         logger.info(f"{self.__class__.__name__} risk score 1.0 done")
 
 
-class AutoNLPService(InsuranceNLPService):
+class CarNLPService(InsuranceNLPService):
     def get_risk(self):
         logger.info(f"{self.__class__.__name__} risk score 2.0 done")

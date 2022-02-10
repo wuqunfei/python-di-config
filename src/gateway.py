@@ -20,6 +20,14 @@ class MysqlGateway(DatabaseGateway):
         logger.info("Saved in Mysql")
 
 
+class PostgresqlGateway(DatabaseGateway):
+    def __init__(self):
+        ...
+
+    def save(self):
+        logger.info("Saved in Postgresql")
+
+
 class ObjectStorageGateway(ABC):
 
     def __init__(self):
