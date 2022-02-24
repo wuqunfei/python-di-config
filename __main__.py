@@ -38,6 +38,7 @@ def my_app(cfg: MySQLConfig) -> None:
     nlp = container.nlp_service_factory()
     nlp.run_nlp()
 
+    """https://python-dependency-injector.ets-labs.org/containers/dynamic.html"""
     container.extra_service_factory = providers.Factory(ExtraDynamicService)
     extra_service = container.extra_service_factory()
     extra_service.echo()
