@@ -89,3 +89,12 @@ class LifeNLPService(InsuranceNLPService):
 class CarNLPService(InsuranceNLPService):
     def get_risk(self):
         logger.info(f"{self.__class__.__name__} risk score 2.0 done")
+
+
+class ExtraDynamicService:
+
+    def __init__(self):
+        pass
+
+    def echo(self):
+        logger.info("We are live")

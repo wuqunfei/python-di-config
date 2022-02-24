@@ -1,8 +1,10 @@
+from dependency_injector import providers
 from pydantic import validator
 from pydantic.dataclasses import dataclass
 import hydra
 from hydra.core.config_store import ConfigStore
 from src.containers import MyContainer
+from src.services import ExtraDynamicService
 
 
 @dataclass
@@ -32,8 +34,13 @@ def my_app(cfg: MySQLConfig) -> None:
     container = MyContainer()
     """3. to load configuration into container"""
     container.config.from_dict(cfg_dict)
+
     nlp = container.nlp_service_factory()
     nlp.run_nlp()
+
+    container.extra_service_factory = providers.Factory(ExtraDynamicService)
+    extra_service = container.extra_service_factory()
+    extra_service.echo()
 
 
 if __name__ == "__main__":
